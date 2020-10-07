@@ -1,0 +1,35 @@
+[
+  {
+    "name": "Estudiar para la clase de hoy",
+    "deadline": "28/09/2020",
+    "done": false
+  },
+  {
+    "name": "Estudiar GIT",
+    "deadline": "05/10/2020",
+    "done": false
+  },
+  {
+    "name": "rever la clase del jueves",
+    "deadline": "02/10/2020",
+    "done": false
+  },
+  {
+    "name": "Estudiar GIT",
+    "deadline": "05/10/2020",
+    "done": false
+  },
+  {
+    "name": "Entender SCRUM",
+    "deadline": "05/10/20"
+  },
+  {
+    "name": "Probar git con compañeros",
+    "deadline": "08/10/20",
+    "done": true
+  },
+  {
+    "name": "Ver la clase grabada",
+    "deadline": "02/10/2020"
+  }
+]
