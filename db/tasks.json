@@ -1,35 +1,32 @@
 [
   {
     "name": "Estudiar para la clase de hoy",
-    "deadline": "28/09/2020",
+    "deadline": "2020-09-28",
+    "done": false
+  },
+  {
+    "name": "Poder ingresar nuevas tareas",
+    "deadline": "2020-10-01",
     "done": false
   },
   {
     "name": "Estudiar GIT",
-    "deadline": "05/10/2020",
+    "deadline": "2020-10-05",
+    "done": false
+  },
+  {
+    "name": "Estudiar SCRUM",
+    "deadline": "2020-10-12",
     "done": false
   },
   {
     "name": "rever la clase del jueves",
-    "deadline": "02/10/2020",
+    "deadline": "2020-12-04",
     "done": false
   },
   {
     "name": "Estudiar GIT",
-    "deadline": "05/10/2020",
-    "done": false
-  },
-  {
-    "name": "Entender SCRUM",
-    "deadline": "05/10/20"
-  },
-  {
-    "name": "Probar git con compañeros",
-    "deadline": "08/10/20",
+    "deadline": "2020-10-08",
     "done": true
-  },
-  {
-    "name": "Ver la clase grabada",
-    "deadline": "02/10/2020"
   }
 ]

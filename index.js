@@ -18,6 +18,7 @@ TODO APP
     -- [] Show done
     -- [] Show pending
     -- [] Show index
+    -- [] Show overdue
     -- [] Show deleted
     [] Search
     -- [] Dates
@@ -135,6 +136,17 @@ function showDeleted() {
   }
 }
 
+function showOverdue(){
+  for (let i = 0; i < tasks.length; i++) {
+    const task = tasks[i];
+    const fechaActual = new Date();
+    const deadline = new Date(Date.parse(task.deadline));
+    if (deadline < fechaActual && !task.done) {
+      console.log(`-Tarea vencida ❌ ${task.name} (${task.deadline})`);
+    }
+  }
+}
+
 function toggle(taskIndex) {
   const task = tasks[taskIndex];
   task.done = !task.done;
@@ -206,6 +218,9 @@ switch (thirdParameter) {
     break;
   case "showdeleted":
     showDeleted();
+    break;
+  case "showoverdue":
+    showOverdue();
     break;
   case "showindex":
     showIndex(fourthParameter);
