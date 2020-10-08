@@ -1,32 +1,17 @@
 [
   {
-    "name": "Estudiar para la clase de hoy",
-    "deadline": "28/09/2020",
-    "done": false
-  },
-  {
-    "name": "Poder ingresar nuevas tareas",
-    "deadline": "01/10/2020",
-    "done": false
-  },
-  {
-    "name": "Estudiar GIT",
-    "deadline": "05/10/2020",
-    "done": false
-  },
-  {
-    "name": "Estudiar SCRUM",
-    "deadline": "08/10/2020",
-    "done": false
-  },
-  {
-    "name": "rever la clase del jueves",
-    "deadline": "02/10/2020",
-    "done": false
-  },
-  {
-    "name": "Estudiar GIT",
-    "deadline": "05/10/2020",
+    "name": "Compleetar TODO",
+    "deadline": "2020-09-28",
     "done": true
+  },
+  {
+    "name": "Pensar otras funcionalidades",
+    "deadline": "2020-10-01",
+    "done": true
+  },
+  {
+    "name": "Testear tareas",
+    "deadline": "2020-10-05",
+    "done": false
   }
 ]

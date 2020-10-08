@@ -2,12 +2,12 @@
   {
     "name": "Estudiar para la clase de hoy",
     "deadline": "2020-09-28",
-    "done": false
+    "done": true
   },
   {
     "name": "Poder ingresar nuevas tareas",
     "deadline": "2020-10-01",
-    "done": false
+    "done": true
   },
   {
     "name": "Estudiar GIT",
