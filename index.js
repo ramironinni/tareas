@@ -42,6 +42,15 @@ const backupFileAbsolutePath = path.join(__dirname, "./db/backup.json");
 const backupJSON = fs.readFileSync(backupFileAbsolutePath, { encoding: "utf-8" });
 const backup = JSON.parse(backupJSON);
 
+const helpFileAbsolutePath = path.join(__dirname, "./help.json");
+const helpJSON = fs.readFileSync(helpFileAbsolutePath, { encoding: "utf-8" });
+const helpText = JSON.parse(helpJSON);
+
+function help(){
+    const text = helpText.join("\n");
+    console.log(text);
+}
+
 
 function Task(name, deadline) {
   this.name = name;
@@ -207,13 +216,16 @@ const fourthParameter = argumentsArray[3];
 const fifthParameter = argumentsArray[4];
 
 switch (thirdParameter) {
-  case "all":
+  case "help":
+    help();
+    break;
+  case "showall":
     showAll();
     break;
-  case "done":
+  case "showdone":
     showDone();
     break;
-  case "pending":
+  case "showpending":
     showPending();
     break;
   case "showdeleted":
@@ -253,5 +265,5 @@ switch (thirdParameter) {
     searchText(fourthParameter);
     break;
   default:
-    console.log("Los parametros aceptados son: 'all', 'done' y 'pending'");
+    console.log("help -> para ayuda");
 }
