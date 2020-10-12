@@ -7,7 +7,7 @@
   {
     "name": "Poder ingresar nuevas tareas",
     "deadline": "2020-10-01",
-    "done": true
+    "done": false
   },
   {
     "name": "Estudiar GIT",
@@ -22,11 +22,16 @@
   {
     "name": "rever la clase del jueves",
     "deadline": "2020-12-04",
-    "done": false
+    "done": true
   },
   {
     "name": "Estudiar GIT",
     "deadline": "2020-10-08",
+    "done": false
+  },
+  {
+    "name": "Practicar SCRUM",
+    "deadline": "2020-10-14",
     "done": true
   }
 ]

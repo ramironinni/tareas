@@ -22,7 +22,7 @@ TODO APP
     -- [] Show deleted
     [] Search
     -- [] Dates
-    -- [x] Keywords or text
+    -- [] Keywords or text
     [x] Sort
     -- [x] by date
 */
@@ -46,24 +46,39 @@ const helpFileAbsolutePath = path.join(__dirname, "./help.json");
 const helpJSON = fs.readFileSync(helpFileAbsolutePath, { encoding: "utf-8" });
 const helpText = JSON.parse(helpJSON);
 
+
+// Ayuda
 function help(){
     const text = helpText.join("\n");
     console.log(text);
 }
 
+// Guardar cambios en el JSON
+function save(tasks) {
+  const tasksJSON = JSON.stringify(tasks, null, 2);
+  fs.writeFileSync(tasksFileAbsolutePath, tasksJSON);
+}
 
+// Constructor de tareas
 function Task(name, deadline) {
   this.name = name;
   this.deadline = deadline;
+  this.done = false;
 }
 
+// Agregar nueva tarea
 function add(name, deadline) {
   const newTask = new Task(name, deadline);
-  tasks.push(newTask);
-  showAll();
-  save(tasks);
+  if (name != undefined && deadline != undefined) {
+    tasks.push(newTask);
+    showAll();
+    save(tasks);
+  } else {
+    console.log("<name> <deadline> required");
+  }
 }
 
+// Borrar todas las tareas
 function deleteAll() {
   const tasksLength = tasks.length;
   const deletedTasks = [];
@@ -76,18 +91,13 @@ function deleteAll() {
   console.log("Todas las tareas han sido borradas. Consulte el backup.");
 }
 
+// Guardar las tareas borradas en el backup
 function saveBackup(deletedTasks) {
   const backupJSON = JSON.stringify(deletedTasks, null, 2);
   fs.writeFileSync(backupFileAbsolutePath, backupJSON);
 }
 
-function restore() {
-  const tasksJSON = backupJSON;
-  fs.writeFileSync(tasksFileAbsolutePath, tasksJSON);
-  console.log("Las tareas han sido restauradas");
-}
-
-
+// Borrar las tareas hechas
 function deleteDone() {
   let tasksNotDone = [];
   for (let i = 0; i < tasks.length; i++) {
@@ -101,6 +111,47 @@ function deleteDone() {
   showAll();
 }
 
+// Restaurar las tareas desde el backup
+function restore() {
+  const tasksJSON = backupJSON;
+  fs.writeFileSync(tasksFileAbsolutePath, tasksJSON);
+  console.log("Las tareas han sido restauradas");
+}
+
+
+// Cambiar de estatus a la tarea según su índice
+function toggle(taskIndex) {
+  if (taskIndex != undefined) {
+    const task = tasks[taskIndex];
+    task.done = !task.done;
+    showAll();
+    save(tasks);
+  } else {
+    console.log("<index> required") 
+  }  
+}
+
+// Marcar todas las tareas como hechas
+function markAllDone() {
+  tasks.map(function (task) {
+    return task.done = true;
+  });
+  showAll();
+  save(tasks);
+}
+
+// Marcar todas las tareas como no hechas
+function markAllNotDone() {
+  tasks.map(function (task) {
+    return task.done = false;
+  });
+  showAll();
+  save(tasks);
+}
+
+
+
+// Mostrar todas las tareas
 function showAll() {
   for (let i = 0; i < tasks.length; i++) {
     const task = tasks[i];
@@ -109,6 +160,7 @@ function showAll() {
   }
 }
 
+// Mostrar las tareas hechas
 function showDone() {
   for (let i = 0; i < tasks.length; i++) {
     const task = tasks[i];
@@ -118,6 +170,7 @@ function showDone() {
   }
 }
 
+// Mostrar las tareas pendientes
 function showPending() {
   for (let i = 0; i < tasks.length; i++) {
     const task = tasks[i];
@@ -127,24 +180,7 @@ function showPending() {
   }
 }
 
-function showIndex(index) {
-  for (let i = 0; i < tasks.length; i++) {
-    const task = tasks[i];
-    if (i == index) {
-      const doneText = task.done ? "☑" : "☐";
-      console.log(`- ${doneText} ${task.name} (${task.deadline})[${i}]`);
-    }
-  }
-}
-
-function showDeleted() {
-  for (let i = 0; i < backup.length; i++) {
-    const task = backup[i];
-    const doneText = task.done ? "☑" : "☐";
-    console.log(`- ${doneText} ${task.name} (${task.deadline})[${i}]`);
-  }
-}
-
+// Mostrar las tareas con el deadline vencido
 function showOverdue(){
   for (let i = 0; i < tasks.length; i++) {
     const task = tasks[i];
@@ -156,35 +192,28 @@ function showOverdue(){
   }
 }
 
-function toggle(taskIndex) {
-  const task = tasks[taskIndex];
-  task.done = !task.done;
-  showAll();
-  save(tasks);
+//Mostrar las tareas borradas que están en el backup
+function showDeleted() {
+  for (let i = 0; i < backup.length; i++) {
+    const task = backup[i];
+    const doneText = task.done ? "☑" : "☐";
+    console.log(`- ${doneText} ${task.name} (${task.deadline})[${i}]`);
+  }
+}
+
+// Buscar las tareas por índice
+function searchIndex(index) {
+  for (let i = 0; i < tasks.length; i++) {
+    const task = tasks[i];
+    if (i == index) {
+      const doneText = task.done ? "☑" : "☐";
+      console.log(`- ${doneText} ${task.name} (${task.deadline})[${i}]`);
+    }
+  }
 }
 
 
-function markAllDone() {
-  tasks.map(function (task) {
-    return task.done = true;
-  });
-  showAll();
-  save(tasks);
-}
-
-function markAllNotDone() {
-  tasks.map(function (task) {
-    return task.done = false;
-  });
-  showAll();
-  save(tasks);
-}
-
-function save(tasks) {
-  const tasksJSON = JSON.stringify(tasks, null, 2);
-  fs.writeFileSync(tasksFileAbsolutePath, tasksJSON);
-}
-
+// Buscar las tareas por fecha
 function searchDate(date){
   for (let i = 0; i < tasks.length; i++) {
     const task = tasks[i];
@@ -195,6 +224,7 @@ function searchDate(date){
   }
 }
 
+// Buscar tareas por texto
 function searchText(text){
   for (let i = 0; i < tasks.length; i++) {
     const task = tasks[i];
@@ -205,8 +235,11 @@ function searchText(text){
   }
 }
 
+
+
+
 //++++++++++++++
-// terminal    +
+// Terminal    +
 //++++++++++++++
 
 
@@ -215,9 +248,30 @@ const thirdParameter = argumentsArray[2];
 const fourthParameter = argumentsArray[3];
 const fifthParameter = argumentsArray[4];
 
-switch (thirdParameter) {
+switch (thirdParameter) {  
   case "help":
     help();
+    break;
+  case "add":
+    add(fourthParameter, fifthParameter);
+    break;
+  case "deleteall":
+    deleteAll();
+    break;
+  case "deletedone":
+    deleteDone();
+    break;
+  case "restore":
+    restore();
+    break;
+  case "toggle":
+    toggle(fourthParameter);
+    break;  
+  case "markalldone":
+    markAllDone();
+    break;
+  case "markallnotdone":
+    markAllNotDone();
     break;
   case "showall":
     showAll();
@@ -228,36 +282,15 @@ switch (thirdParameter) {
   case "showpending":
     showPending();
     break;
-  case "showdeleted":
-    showDeleted();
-    break;
   case "showoverdue":
     showOverdue();
     break;
-  case "showindex":
-    showIndex(fourthParameter);
+  case "showdeleted":
+    showDeleted();
     break;
-  case "toggle":
-    toggle(fourthParameter);
-    break;
-  case "add":
-    add(fourthParameter, fifthParameter);
-    break;
-  case "markalldone":
-    markAllDone();
-    break;
-  case "markallnotdone":
-    markAllNotDone();
-    break;
-  case "deleteall":
-    deleteAll();
-    break;
-  case "restore":
-    restore();
-    break;
-  case "deletedone":
-    deleteDone();
-    break;
+  case "searchindex":
+    searchIndex(fourthParameter);
+    break;  
   case "searchdate":
     searchDate(fourthParameter);
     break;
